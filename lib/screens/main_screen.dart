@@ -28,36 +28,59 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
     Navigator.of(context).pop(); // Cerrar el menú lateral (Drawer)
   }
 
-  Widget _construirListaPorCategoria(String titulo, List<DefinicionGrafica> graficas) {
-    final agrupadas = <String, List<DefinicionGrafica>>{};
-    for (var grafica in graficas) {
-      agrupadas.putIfAbsent(grafica.subCategoria, () => []).add(grafica);
-    }
+  Widget _construirDirectorioDeLibreria(String nombreLibreria, List<DefinicionGrafica> todasLasGraficas) {
+    final graficasDeLibreria = todasLasGraficas.where((g) => g.libreria == nombreLibreria).toList();
+    if (graficasDeLibreria.isEmpty) return const SizedBox.shrink();
+
+    final basicas = graficasDeLibreria.where((g) => g.categoria == 'basica').toList();
+    final avanzadas = graficasDeLibreria.where((g) => g.categoria == 'avanzada').toList();
 
     return Theme(
       data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
       child: ExpansionTile(
         initiallyExpanded: false,
-        title: Text(titulo, style: const TextStyle(fontWeight: FontWeight.bold)),
-        children: agrupadas.entries.map((entrada) {
-          return ExpansionTile(
-            title: Text(entrada.key),
-            children: entrada.value.map((grafica) {
-              return ListTile(
-                contentPadding: const EdgeInsets.only(left: 32.0),
-                title: Text(grafica.nombre),
-                selected: _graficaSeleccionada == grafica,
-                onTap: () => _alSeleccionarGrafica(grafica),
-              );
-            }).toList(),
-          );
-        }).toList(),
+        title: Text(nombreLibreria, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+        children: [
+          if (basicas.isNotEmpty) _construirListaPorCategoria('Básicas (${basicas.length})', basicas),
+          if (avanzadas.isNotEmpty) _construirListaPorCategoria('Avanzadas (${avanzadas.length})', avanzadas),
+        ],
       ),
+    );
+  }
+
+  Widget _construirListaPorCategoria(String titulo, List<DefinicionGrafica> graficas) {
+    final agrupadas = <String, List<DefinicionGrafica>>{};
+    for (var chart in graficas) {
+      agrupadas.putIfAbsent(chart.subCategoria, () => []).add(chart);
+    }
+
+    return ExpansionTile(
+      initiallyExpanded: false,
+      title: Text(titulo, style: const TextStyle(fontWeight: FontWeight.bold)),
+      children: agrupadas.entries.map((entrada) {
+        return ExpansionTile(
+          tilePadding: const EdgeInsets.only(left: 16.0),
+          title: Text(entrada.key),
+          children: entrada.value.map((grafica) {
+            return ListTile(
+              contentPadding: const EdgeInsets.only(left: 48.0),
+              title: Text(grafica.nombre),
+              selected: _graficaSeleccionada == grafica,
+              onTap: () => _alSeleccionarGrafica(grafica),
+            );
+          }).toList(),
+        );
+      }).toList(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    final todas = [
+      ...FabricaGraficas.graficasBasicas,
+      ...FabricaGraficas.graficasAvanzadas,
+    ];
+
     return Scaffold(
       appBar: AppBar(
         title: Text(_graficaSeleccionada?.nombre ?? 'App de Gráficas'),
@@ -67,11 +90,11 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
-            const DrawerHeader(
+            DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.deepPurple,
+                color: Theme.of(context).colorScheme.inversePrimary,
               ),
-              child: Text(
+              child: const Text(
                 'Gráficas',
                 style: TextStyle(
                   color: Colors.white,
@@ -79,8 +102,10 @@ class _PantallaPrincipalState extends State<PantallaPrincipal> {
                 ),
               ),
             ),
-            _construirListaPorCategoria('Básicas (40)', FabricaGraficas.graficasBasicas),
-            _construirListaPorCategoria('Avanzadas (25)', FabricaGraficas.graficasAvanzadas),
+            _construirDirectorioDeLibreria('fl_chart', todas),
+            _construirDirectorioDeLibreria('d_chart', todas),
+            _construirDirectorioDeLibreria('graphic', todas),
+            _construirDirectorioDeLibreria('community_charts_flutter', todas),
           ],
         ),
       ),

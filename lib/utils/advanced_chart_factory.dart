@@ -14,6 +14,7 @@ class FabricaGraficasAvanzadas {
         graficas.add(DefinicionGrafica(
             id: 'combo_avanzado_$i',
             nombre: 'Avanzada Combo Barra-Línea $i',
+            libreria: 'fl_chart',
             categoria: 'avanzada',
             subCategoria: 'Combo Barra-Línea',
             constructor: (context) => _construirGraficaDeGotaBarra(
@@ -29,6 +30,7 @@ class FabricaGraficasAvanzadas {
         graficas.add(DefinicionGrafica(
             id: 'combo_disp_linea_$i',
             nombre: 'Avanzada Combo Dispersión-Línea $i',
+            libreria: 'fl_chart',
             categoria: 'avanzada',
             subCategoria: 'Combo Dispersión-Línea',
             constructor: (context) => _construirGraficaDispersionYLinea(
@@ -43,6 +45,7 @@ class FabricaGraficasAvanzadas {
         graficas.add(DefinicionGrafica(
             id: 'linea_grad_avanzada_$i',
             nombre: 'Línea de Área Gradiente $i',
+            libreria: 'fl_chart',
             categoria: 'avanzada',
             subCategoria: 'Líneas Avanzadas',
             constructor: (context) => _construirGraficaLineaAvanzada(
@@ -57,6 +60,7 @@ class FabricaGraficasAvanzadas {
         graficas.add(DefinicionGrafica(
             id: 'pastel_avanzado_$i',
             nombre: 'Pastel Complejo $i',
+            libreria: 'fl_chart',
             categoria: 'avanzada',
             subCategoria: 'Pastel Avanzado',
             constructor: (context) => _construirGraficaPastelAvanzado(
@@ -70,6 +74,7 @@ class FabricaGraficasAvanzadas {
         graficas.add(DefinicionGrafica(
             id: 'barra_multi_avanzada_$i',
             nombre: 'Barras Agrupadas/Apiladas $i',
+            libreria: 'fl_chart',
             categoria: 'avanzada',
             subCategoria: 'Barras Avanzadas',
             constructor: (context) => _construirGraficaBarraAvanzada(

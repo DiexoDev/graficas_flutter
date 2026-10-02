@@ -14,6 +14,7 @@ class FabricaGraficasBasicas {
       graficas.add(DefinicionGrafica(
         id: 'linea_basica_$i',
         nombre: 'Gráfica de Líneas $i',
+        libreria: 'fl_chart',
         categoria: 'basica',
         subCategoria: 'Líneas',
         constructor: (context) => _construirGraficaDeLinea(
@@ -30,6 +31,7 @@ class FabricaGraficasBasicas {
         graficas.add(DefinicionGrafica(
             id: 'barra_basica_$i',
             nombre: 'Gráfica de Barras $i',
+            libreria: 'fl_chart',
             categoria: 'basica',
             subCategoria: 'Barras',
             constructor: (context) => _construirGraficaDeBarra(
@@ -45,6 +47,7 @@ class FabricaGraficasBasicas {
         graficas.add(DefinicionGrafica(
             id: 'pastel_basico_$i',
             nombre: 'Gráfica de Pastel $i',
+            libreria: 'fl_chart',
             categoria: 'basica',
             subCategoria: 'Pastel',
             constructor: (context) => _construirGraficaDePastel(
@@ -59,6 +62,7 @@ class FabricaGraficasBasicas {
         graficas.add(DefinicionGrafica(
             id: 'dispersion_basica_$i',
             nombre: 'Gráfica de Dispersión $i',
+            libreria: 'fl_chart',
             categoria: 'basica',
             subCategoria: 'Dispersión',
             constructor: (context) => _construirGraficaDeDispersion(
@@ -72,6 +76,7 @@ class FabricaGraficasBasicas {
         graficas.add(DefinicionGrafica(
             id: 'radar_basico_$i',
             nombre: 'Gráfica de Radar $i',
+            libreria: 'fl_chart',
             categoria: 'basica',
             subCategoria: 'Radar',
             constructor: (context) => _construirGraficaDeRadar(
